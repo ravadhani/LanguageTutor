@@ -1,14 +1,17 @@
 import streamlit as st
 import requests
 import numpy as np
-import sounddevice as sd
+#import sounddevice as sd
+from audio_recorder_streamlit import audio_recorder
 import io
 from scipy.io.wavfile import write
 import wave
 import openai
-import config
+#import config
 from openai import OpenAI
-client = OpenAI(api_key=config.API_KEY)
+
+API_KEY = st.secrets["API_KEY"]
+client = OpenAI(api_key=API_KEY)
 
 
 
@@ -97,13 +100,21 @@ def app():
             duration = 30  # seconds
             sample_rate = 44100  # Sample rate
             st.write('Recording started... speak now!')
-            myrecording = sd.rec(int(duration * sample_rate), samplerate=sample_rate, channels=1, dtype='int16')
-            sd.wait()  # Wait until recording is finished
+            
+            #myrecording = sd.rec(int(duration * sample_rate), samplerate=sample_rate, channels=1, dtype='int16')
+            #sd.wait()  # Wait until recording is finished
+            
+            myrecording = audio_recorder(energy_threshold=(-1.0, 1.0),
+                                         pause_threshold=30.0,
+                                         key="fixed",
+                                         )
+            
             st.write('Recording Done!')
             st.session_state.recording_started = False
             # Convert the NumPy array to audio file
             st.write('Recording stopped.')
             output_file = "output2.wav"
+            
             with wave.open(output_file, 'w') as wf:
                 wf.setnchannels(1)  # Stereo
                 wf.setsampwidth(2)  # Sample width in bytes
