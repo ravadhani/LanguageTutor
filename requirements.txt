@@ -2,5 +2,5 @@ numpy==2.0.0
 openai==1.41.1
 Requests==2.32.3
 scipy==1.13.1
-sounddevice==0.5.0
 streamlit==1.37.1
+audio_recorder_streamlit
