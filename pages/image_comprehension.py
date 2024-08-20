@@ -118,7 +118,7 @@ def app():
                 output_file = "output2.wav"
 
                 #save the audio data
-                with wave.open(output_file, 'w') as wf:
+                with wave.open(output_file, 'wb') as wf:
                     wf.setnchannels(1)  # Stereo
                     wf.setsampwidth(2)  # Sample width in bytes
                     wf.setframerate(sample_rate)
