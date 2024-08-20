@@ -113,19 +113,27 @@ def app():
                 st.write('Recording Done!')
                 st.session_state.recording_started = False
                 # Convert the NumPy array to audio file
-                st.write('Recording stopped.')
+                
 
                 #Convert the recorded audio into a file format
                 output_file = "output2.wav"
+                
+                try:
+                    #save the audio data
+                    with wave.open(output_file, 'wb') as wf:
+                        wf.setnchannels(2)  # Stereo
+                        wf.setsampwidth(2)  # Sample width in bytes
+                        wf.setframerate(sample_rate)
+                        wf.writeframes(myrecording)
 
-                #save the audio data
-                with wave.open(output_file, 'wb') as wf:
-                    wf.setnchannels(2)  # Stereo
-                    wf.setsampwidth(2)  # Sample width in bytes
-                    wf.setframerate(sample_rate)
-                    wf.writeframes(myrecording)
-
-            print(f"Audio saved to {output_file}")
-            user_description = speech_to_text("output2.wav")
-            model_description = describe_image(st.session_state.image_url)
-            compare_descriptions(model_description, user_description)
+                    st.write('Recording stopped.')
+                    st.write(f"Audio saved to {output_file}") #print statement
+                    
+                    user_description = speech_to_text("output2.wav")
+                    model_description = describe_image(st.session_state.image_url)
+                    compare_descriptions(model_description, user_description)
+                    
+                except Exception as e:
+                    st.write(f"An error occured: {e}")
+            else:
+                st.write('No audio recorded.')
