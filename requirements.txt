@@ -291,6 +291,7 @@ sniffio @ file:///opt/concourse/worker/volumes/live/38ca9e9e-09d1-4d43-5a0f-b546
 snowballstemmer @ file:///tmp/build/80754af9/snowballstemmer_1637937080595/work
 sortedcollections @ file:///tmp/build/80754af9/sortedcollections_1611172717284/work
 sortedcontainers @ file:///tmp/build/80754af9/sortedcontainers_1623949099177/work
+sounddevice==0.5.0
 soupsieve @ file:///tmp/build/80754af9/soupsieve_1636706018808/work
 Sphinx @ file:///opt/conda/conda-bld/sphinx_1643644169832/work
 sphinxcontrib-applehelp @ file:///home/ktietz/src/ci/sphinxcontrib-applehelp_1611920841464/work
