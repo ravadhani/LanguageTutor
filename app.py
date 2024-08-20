@@ -10,7 +10,7 @@ PAGES = {
 }
 
 def main():
-    st.write(f"Python version: {sys.version}")
+    #st.write(f"Python version: {sys.version}")
     st.sidebar.title('Navigation')
     selection = st.sidebar.radio("Go to", list(PAGES.keys()))
 
