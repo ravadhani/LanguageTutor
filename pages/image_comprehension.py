@@ -97,7 +97,7 @@ def app():
 
         if st.button('Start Talking'):
             st.session_state.recording_started = True
-            duration = 30  # seconds
+            # duration = 30  # seconds
             sample_rate = 44100  # Sample rate
             st.write('Recording started... speak now!')
             
@@ -108,18 +108,21 @@ def app():
                                          pause_threshold=30.0,
                                          key="fixed",
                                          )
-            
-            st.write('Recording Done!')
-            st.session_state.recording_started = False
-            # Convert the NumPy array to audio file
-            st.write('Recording stopped.')
-            output_file = "output2.wav"
-            
-            with wave.open(output_file, 'w') as wf:
-                wf.setnchannels(1)  # Stereo
-                wf.setsampwidth(2)  # Sample width in bytes
-                wf.setframerate(sample_rate)
-                wf.writeframes(myrecording.tobytes())
+            if myrecording:
+                st.write('Recording Done!')
+                st.session_state.recording_started = False
+                # Convert the NumPy array to audio file
+                st.write('Recording stopped.')
+
+                #Convert the recorded audio into a file format
+                output_file = "output2.wav"
+
+                #save the audio data
+                with wave.open(output_file, 'w') as wf:
+                    wf.setnchannels(1)  # Stereo
+                    wf.setsampwidth(2)  # Sample width in bytes
+                    wf.setframerate(sample_rate)
+                    wf.writeframes(myrecording)
 
             print(f"Audio saved to {output_file}")
             user_description = speech_to_text("output2.wav")
